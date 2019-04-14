@@ -32,6 +32,36 @@ player.speed(0)  # needs to be the fastest due to the nature of it being a game
 player.setposition(0, -250)  # Centre towards the bottom
 player.setheading(90)  # Now, initially our triangle is positioned to the right we need to change by 90 degrees using this line
 
+# Step 4: Player controls
+player_speed = 15 # variable that contains our chractar speed for now
+
+# The following are two function that will move our player left and right respectively.
+def move_left():
+    x = player.xcor()  # this is 0 when the game starts
+    x -= player_speed  # subtracts the players speed and assigns it to x. X = 15
+    if x < -280:  # If our player goes beyoud -280 pixels (our border on the left) it will be set back to - 280
+        x = - 280
+    player.setx(x)  # get current x subtract the speed and change the players location to the new x
+
+def move_right(): #Same method except we are adding seeing how we are moving to the right
+    x = player.xcor()
+    x += player_speed
+    if x > 280:
+        x = 280
+    player.setx(x)
+
+
+# Create keyboard bindings
+turtle.listen()  # listen for keyboard actions
+turtle.onkey(move_left, "Left")  # when key is pressed move to the left
+turtle.onkey(move_right, "Right")  # when key is pressed move to the right.
+
+
+
+
+
+
+
 
 
 
