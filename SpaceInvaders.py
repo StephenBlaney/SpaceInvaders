@@ -9,6 +9,13 @@ import random
 wn = turtle.Screen()  # basically we need to create a screen object which we derive from the turtle module
 wn.bgcolor("black")  # Background of are screen is set to black as it's the color of our space background
 wn.title("Space Invaders")  # The opening title of our screen object
+wn.bgpic("Spacebackgroud.PNG")
+
+#Register the shapes
+wn.register_shape("invader.gif")
+wn.register_shape("player.gif")
+
+
 
 # Step 2: Draw a border  the game will be 600x 600 in teh centre of the screen.
 border_pen = turtle.Turtle()  # Create a turtle pen the following is than a list of all the attrbutes for that turle this basically is like a pencil that draws our screen
@@ -42,7 +49,7 @@ score_pen.hideturtle()
 # Step 3: Create a player turtle
 player = turtle.Turtle()  # Turtle object created
 player.color("blue")
-player.shape("triangle")
+player.shape("player.gif")
 player.penup()  # lift the pen
 player.speed(0)  # needs to be the fastest due to the nature of it being a game
 player.setposition(0, -250)  # Centre towards the bottom
@@ -65,7 +72,7 @@ for i in range(number_of_enemies):
 # Step 5: Create the enemy
 for enemy in enemies:
     enemy.color("red")  # Set enemy color to red
-    enemy.shape("circle")  # Set the enemy shape to circle
+    enemy.shape("invader.gif")  # Set the enemy shape to circle
     enemy.penup()  # We don't want anymore drawing in the background.
     enemy.speed(0)  # Fast as possible
     x = random.randint(-200, 200)
