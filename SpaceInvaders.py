@@ -65,9 +65,7 @@ bulletstate = "ready"
 
 
 def fire_bullet():
-    # Declare bulletstate as a global variable as it will change
-    global bulletstate # Global is important as it's will change the state of the bullet
-    if bulletstate == "ready":  # if bullet state is ready which it is
+    if not bullet.isvisible(): # if bullet state is ready which it is
         bulletstate = "fire"  # change var to fire
         # Move the bullet just above the player
         x = player.xcor()
@@ -121,7 +119,7 @@ while True: #when the game runs meaning forever
         enemy.sety(y)
 
     # Step 8: Move the bullet only in the fire state
-    if bulletstate == "fire":
+    if bullet.isvisible():
         y = bullet.ycor()
         y += bullet_speed
         bullet.sety(y)
