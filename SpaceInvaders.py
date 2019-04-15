@@ -6,6 +6,8 @@ import os
 import random
 
 # Step 1: Set up the screen
+import winsound
+
 wn = turtle.Screen()  # basically we need to create a screen object which we derive from the turtle module
 wn.bgcolor("black")  # Background of are screen is set to black as it's the color of our space background
 wn.title("Space Invaders")  # The opening title of our screen object
@@ -56,7 +58,7 @@ player.setposition(0, -250)  # Centre towards the bottom
 player.setheading(90)  # Now, initially our triangle is positioned to the right we need to change by 90 degrees using this line
 
 # Step 4: Player controls
-player_speed = 15 # variable that contains our chractar speed for now
+player_speed = 15  # variable that contains our chractar speed for now
 
 
 # choose the number of enemies
@@ -104,6 +106,7 @@ bulletstate = "ready"
 def fire_bullet():
     if not bullet.isvisible(): # if bullet state is ready which it is
         bulletstate = "fire"  # change var to fire
+        winsound.PlaySound("laser", winsound.SND_ASYNC)
         # Move the bullet just above the player
         x = player.xcor()
         y = player.ycor()
@@ -169,6 +172,7 @@ while True: #when the game runs meaning forever
 
          # Check for collision between the bullet and the enemy
         if isCollision(bullet, enemy):
+            winsound.PlaySound("explosion", winsound.SND_ASYNC)
             # Reset the bullet
             bullet.hideturtle() #hide bullet
             bulletstate = "ready" #state to ready
