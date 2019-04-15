@@ -5,7 +5,6 @@ import turtle
 import os
 import random
 
-
 # Step 1: Set up the screen
 wn = turtle.Screen()  # basically we need to create a screen object which we derive from the turtle module
 wn.bgcolor("black")  # Background of are screen is set to black as it's the color of our space background
@@ -114,7 +113,6 @@ def move_right():  # Same method except we are adding seeing how we are moving t
     player.setx(x)
 
 
-
 # Create keyboard bindings for player and bullets
 
 
@@ -132,17 +130,20 @@ while True: #when the game runs meaning forever
         enemy.setx(x)
 
         #boundary checking for enemy
-        if enemy.xcor() > 280:
+        if enemy.xcor() > 280: #change the cor if one of are enemeys touches the sides
+            for e in enemies:
+                y = e.ycor() #get current y cor
+                y -= 40 # bring down our enimy 40 pixels
+                e.sety(y)
             enemy_speed *= -1 #Basically when our enemy goes over the boundary it needs to turn around and go back this is by we mutiple by postive 1 so it goes the other direction
-            y = enemy.ycor() #get current y cor
-            y -= 40 # bring down our enimy 40 pixels
-            enemy.sety(y)
+
 
         if enemy.xcor() < -280:  # Same principle applies here
+            for e in enemies:
+                y = e.ycor()
+                y -= 40
+                e.sety(y)
             enemy_speed *= -1
-            y = enemy.ycor()
-            y -= 40
-            enemy.sety(y)
 
          # check for collision between the bullet and the enemy
         if isCollision(bullet, enemy):
@@ -172,13 +173,6 @@ while True: #when the game runs meaning forever
     if bullet.ycor() > 275:  # if the posiiton of our bullet goes off of the screen
         bullet.hideturtle()  # Hide object
         bulletstate = "ready"  # Change state back to ready to fire again
-
-
-
-
-
-
-
 
 # This command tells python that we are finnish using turle commands this effeictvely means that we have to reimport it again if we want to use the turtle module
 wn.mainloop()
