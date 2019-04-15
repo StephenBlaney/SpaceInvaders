@@ -45,6 +45,35 @@ enemy.setposition(-200, 250)  # This will place our enemy somewhere on the top l
 
 enemy_speed = 2
 
+# step 7: Player defence
+bullet = turtle.Turtle()  # turtle object
+bullet.color("yellow")
+bullet.shape("triangle")
+bullet.penup()
+bullet.speed(0)
+bullet.setheading(90)
+bullet.shapesize(0.5, 0.5)
+bullet.hideturtle()  # hides the turtle object until we need i.e when we are firing
+
+bullet_speed = 20  # local var of the speed of the bullet
+
+#Define bullet state
+#ready - ready to fire
+#fire - bullet is firing
+
+bulletstate = "ready"
+
+
+def fire_bullet():
+    # Declare bulletstate as a global variable as it will change
+    global bulletstate # Global is important as it's will change the state of the bullet
+    if bulletstate == "ready":  # if bullet state is ready which it is
+        bulletstate = "fire"  # change var to fire
+        # Move the bullet just above the player
+        x = player.xcor()
+        y = player.ycor()
+        bullet.setposition(x, y + 10)  # so its the tip of the triangle
+        bullet.showturtle()  # have the bullet come out of hiding
 
 def move_left():  # The following are two function that will move our player left and right respectively.
     x = player.xcor()  # this is 0 when the game starts
@@ -61,12 +90,15 @@ def move_right():  # Same method except we are adding seeing how we are moving t
         x = 280
     player.setx(x)
 
-# Create keyboard bindings
+
+
+# Create keyboard bindings for player and bullets
 
 
 wn.listen()  # listen for keyboard actions
 wn.onkey(move_left, "Left")  # when key is pressed move to the left
 wn.onkey(move_right, "Right")  # when key is pressed move to the right.
+wn.onkey(fire_bullet, "space")  # Fire when space is pressed
 
 # Step 6: Main game loop
 while True: #when the game runs meaning forever
@@ -87,6 +119,24 @@ while True: #when the game runs meaning forever
         y = enemy.ycor()
         y -= 40
         enemy.sety(y)
+
+    # Step 8: Move the bullet only in the fire state
+    if bulletstate == "fire":
+        y = bullet.ycor()
+        y += bullet_speed
+        bullet.sety(y)
+
+    #Check to see if the bullet has gone to the top
+    if bullet.ycor() > 275:  # if the posiiton of our bullet goes off of the screen
+        bullet.hideturtle()  # Hide object
+        bulletstate = "ready"  # Change state back to ready to fire again
+
+
+
+
+
+
+
 
 
 
