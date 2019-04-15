@@ -24,6 +24,21 @@ for side in range(4):  # loop 4 times
     border_pen.lt(90)   # left 90 degrees
 border_pen.hideturtle() # hides our turtle pen
 
+# Set the beginning score to 0
+score = 0
+
+#Draw the score
+score_pen = turtle.Turtle()
+score_pen.speed(0)
+score_pen.color("white")
+score_pen.penup()
+score_pen.setposition(-290, 280)
+
+scorestring = "Score: {}".format(score)
+score_pen.write(scorestring, False, align="left", font=("arial", 14, "normal"))
+score_pen.hideturtle()
+
+
 # Step 3: Create a player turtle
 player = turtle.Turtle()  # Turtle object created
 player.color("blue")
@@ -145,16 +160,21 @@ while True: #when the game runs meaning forever
                 e.sety(y)
             enemy_speed *= -1
 
-         # check for collision between the bullet and the enemy
+         # Check for collision between the bullet and the enemy
         if isCollision(bullet, enemy):
-            #Reset the bullet
+            # Reset the bullet
             bullet.hideturtle() #hide bullet
             bulletstate = "ready" #state to ready
             bullet.setposition(0, -400) #set the bullet position back to it's orignal place
-            #Reset the enermy to a random position
+            # Reset the enermy to a random position
             x = random.randint(-200, 200)
             y = random.randint(100, 250)
             enemy.setposition(x, y)
+            # Update the score
+            score += 10
+            scorestring = "Score: {} ".format(score)
+            score_pen.clear()
+            score_pen.write(scorestring, False, align="left", font=("arial", 14, "normal"))
 
         if isCollision(player, enemy):  # When the enemy comes into contact with the player
             player.hideturtle()  # make the player go away
